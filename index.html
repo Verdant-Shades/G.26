@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.26 Portfolio 2568</title>
+    <style>
+        /* [KEEP ALL YOUR PREVIOUS CSS UNTIL MODAL INFO] */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Kanit', 'Segoe UI', sans-serif; }
+        body { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(BG.jpg); background-size: cover; background-position: center; background-attachment: fixed; color: white; overflow-x: hidden; scroll-behavior: smooth; padding-bottom: 100px; }
+        .school-logo-container { position: relative; display: flex; justify-content: center; width: fit-content; height: 80px; margin: 40px auto 0 auto; animation: fadeInDown 1s ease-out; cursor: pointer; z-index: 10; }
+        .school-logo { width: 80px; height: auto; position: absolute; transition: opacity 0.5s ease, transform 0.5s ease; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+        .logo-hover { opacity: 0; }
+        .school-logo-container:hover .logo-main { opacity: 0; transform: scale(0.8) rotate(-10deg); }
+        .school-logo-container:hover .logo-hover { opacity: 1; transform: scale(1.1); }
+        header { text-align: center; padding: 20px 20px 40px; animation: fadeIn 1.5s ease-out; }
+        h1 { font-size: 3.5rem; letter-spacing: 8px; margin-bottom: 5px; font-weight: 700; }
+        .class-info { font-size: 1.2rem; color: #888; font-weight: 300; }
+        /* 4. HERO SECTION */
+
+        .hero-section {
+            width: 90vw;
+            max-width: 1100px;
+            margin: 0 auto 60px auto;
+            height: 50vh;
+            overflow: hidden;
+            border-radius: 25px;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+            
+            /* Enhanced Animation */
+            opacity: 0; /* Start invisible */
+            animation: slideUpHero 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.3s; /* Wait for logo to start */
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 1.5s ease; /* Smooth zoom on hover */
+            transform: scale(1.1); /* Start slightly zoomed for a 'settling' effect */
+        }
+
+        .hero-section:hover .hero-image {
+            transform: scale(1); /* Zoom out slightly when hovered */
+        }
+
+        /* NEW SPECIFIC ANIMATION FOR HERO */
+        @keyframes slideUpHero {
+            from { 
+                opacity: 0; 
+                transform: translateY(60px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        .gallery { display: flex; width: 95vw; max-width: 1100px; height: 40vh; margin: 0 auto 80px auto; gap: 15px; }
+        .gallery-item { position: relative; flex: 1; overflow: hidden; border-radius: 20px; transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        .gallery-item:hover { flex: 5; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.4); transition: 0.8s; }
+        .gallery-item:hover img { filter: grayscale(0%) brightness(1); }
+
+        /* 6. MODAL STYLES (UPDATED WITH BUTTON) */
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(15px); justify-content: center; align-items: center; animation: fadeIn 0.3s ease; }
+        .modal-wrapper { display: flex; flex-direction: column; align-items: center; max-width: 90%; max-height: 90%; background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); overflow-y: auto; }
+        .modal-content { max-width: 100%; height: auto; border-radius: 15px; object-fit: contain; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .modal-info { text-align: center; margin-top: 25px; padding: 0 10px; }
+        #modalTitle { font-size: 2rem; color: #fff; margin-bottom: 15px; }
+        #modalDesc { color: #ccc; font-weight: 300; line-height: 1.8; font-size: 1.1rem; margin-bottom: 25px; }
+
+        /* NEW MODAL BUTTON STYLE */
+        .modal-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid white;
+        }
+        .modal-button:hover {
+            background: transparent;
+            color: white;
+            box-shadow: 0 0 15px white;
+        }
+
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 50px; color: white; cursor: pointer; z-index: 2100; }
+
+        /* 7. TEXT SECTION */
+        .text-section { width: 90vw; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 30px; padding: 80px 20px; border-top: 1px solid rgba(255,255,255,0.1); animation: slideUp 1.5s ease-out; }
+        .text-title { font-size: 2.5rem; letter-spacing: 4px; }
+        .text-content { font-size: 1.2rem; line-height: 2; color: #ccc; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (min-width: 1024px) {
+            .modal-wrapper { flex-direction: row; gap: 40px; padding: 40px; align-items: center; }
+            .modal-content { max-width: 60%; }
+            .modal-info { text-align: left; margin-top: 0; }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .hero-section { height: 35vh; }
+            .gallery { flex-direction: column; height: auto; gap: 20px; }
+            .gallery-item { width: 100%; height: 250px; flex: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="school-logo-container">
+        <img src="RWS_Logo.png" alt="School Logo" class="school-logo logo-main">
+        <img src="RWS_Logo2.png" alt="Alternate Logo" class="school-logo logo-hover">
+    </div>
+
+    <header>
+        <h1>G.26</h1>
+        <p class="class-info">ม.6/2 2568</p>
+    </header>
+
+    <section class="hero-section">
+        <img src="Main_Image.jpg" class="hero-image" alt="Overall Concept">
+    </section>
+
+    <header><h1 style="font-size: 2rem;">- ผลงานที่เคยทำ -</h1></header>
+
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="ภูเขาไฟระเบิด.png" 
+                 data-title="ภูเขาไฟระเบิด" 
+                 data-desc="โปรเจคจำลองโครงสร้างภายในของโลกและการปะทุของแมกมา และแนวทางในการปฏิบัติเพื่อเกิดภูเขาไฟระเบิด"
+                 data-link="https://www.canva.com/design/DAGw3toj1Dw/SbhzwM-8GBF8VPVIDPfCtg/view?utm_content=DAGw3toj1Dw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hdbca12e11c">
+        </div>
+        <div class="gallery-item">
+            <img src="แผ่นดินไหว.png" 
+                 data-title="แผ่นดินไหว" 
+                 data-desc="การศึกษาผลกระทบจากคลื่นไหวสะเทือนแ และการเฝ้าระวังภัยพิบัติแผ่นดินไหว"
+                 data-link="https://www.canva.com/design/DAGyNN-_kKk/YuUQtmXv4j7TE9E3v2t-Qw/view?utm_content=DAGyNN-_kKk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h078fd8d86a"> </div>
+        <div class="gallery-item">
+            <img src="สึนามิ.png" 
+                 data-title="สึนามิ" 
+                 data-desc="แบบจำลองการเกิดคลื่นยักษ์สึนามิจากการขยับตัวของเปลือกโลกใต้ทะเล และแนวทางการเฝ้าระวังภัยพิบัติ"
+                 data-link="https://www.canva.com/design/DAHCDSVJH8I/3JIzEf1Y6F-xiP3vBvBHeg/view?utm_content=DAHCDSVJH8I&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h6ca15c3998"> </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <div class="modal-wrapper">
+            <img class="modal-content" id="fullImage">
+            <div class="modal-info">
+                <h2 id="modalTitle">Title</h2>
+                <p id="modalDesc">Description text will go here.</p>
+                <a href="#" id="modalLink" target="_blank" class="modal-button">เปิดดู</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="text-section">
+        <div class="text-title">คำพูดส่งท้าย <br>จากพวกผม</div>
+        <div class="text-content">
+            <p>ถึงคุณครูอาอีดะห์ ดามะ</p>
+            <br>
+            <p>พวกเรา ม.6/2 ขอขอบคุณสำหรับทุกบทเรียนและคำชี้แนะตลอดปีที่ผ่านมาครับ หากมีสิ่งใดที่พวกเราเคยทำพลาดไป หรือทำให้ครูไม่สบายใจ พวกเราขออภัยไว้ ณ ที่นี้ด้วยครับ</p>
+            <br>
+            <p>ขอให้ครูมีความสุขและสุขภาพแข็งแรงตลอดไปครับ</p>
+            <br>
+            <p>— จาก ม.6/2 2568</p>
+        </div>
+    </section>
+
+    <script>
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("fullImage");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDesc = document.getElementById("modalDesc");
+        const modalLink = document.getElementById("modalLink"); // New link variable
+        const closeBtn = document.querySelector(".close-btn");
+
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.onclick = function() {
+                modal.style.display = "flex";
+                modalImg.src = this.src;
+                modalTitle.innerText = this.getAttribute('data-title');
+                modalDesc.innerText = this.getAttribute('data-desc');
+                
+                // Get the link and update the button
+                const link = this.getAttribute('data-link');
+                modalLink.href = link;
+
+                // Optional: Hide button if there is no link (just "#")
+                if(link === "#") {
+                    modalLink.style.display = "none";
+                } else {
+                    modalLink.style.display = "inline-block";
+                }
+            }
+        });
+
+        closeBtn.onclick = function() { modal.style.display = "none"; }
+        window.onclick = function(event) {
+            if (event.target == modal) { modal.style.display = "none"; }
+        }
+    </script>
+
+</body>
+</html>
